@@ -1,4 +1,4 @@
-anos = unique(dataset$ano) %>% as.data.frame()
+anos = unique(dataset$ano)
 ano_min = min(anos)
 ano_max = max(anos)
 
@@ -28,6 +28,14 @@ dashboardPage(
             title = 'Selecione um período',
             width = 4,
             sliderInput('periodo_dashboard', 'Intervalo:', ano_min, ano_max, c(dataset), step = 1, dragRange = TRUE)
+          )
+        ),
+        
+        fluidRow(
+          box(
+            title = 'Atentados por tipo de ataque',
+            width = 8,
+            plotOutput('atentados_por_tipo_ataque')
           )
         )
       ),

@@ -1,24 +1,47 @@
-#install.packages(c("ggplot2", "ggcorrplot", "ggalt", 
-#                   "ggExtra", "ggthemes", "ggplotify",
-#                   "treemapify", "plyr", "dplyr", "scales",
-#                   "zoo", "shiny", "shinydashboard"), 
-#                 dependencies = TRUE)
+# install.packages(c('rsconnect',
+#                    'tidyverse',
+#                    'plyr',
+#                    'scales',
+#                    'arules',
+#                    'arulesViz',
+#                    'car',
+#                    'caret',
+#                    'forecast',
+#                    'zoo',
+#                    'ggcorrplot',
+#                    'ggalt',
+#                    'ggmap',
+#                    'ggpubr',
+#                    'ggExtra',
+#                    'ggfortify',
+#                    'ggplotify',
+#                    'rworldmap',
+#                    'treemapify',
+#                    'shiny',
+#                    'shinydashboard'),
+#                  dependencies = TRUE)
 
 ### Carregando pacotes
-library(ggplot2)
+library(plyr)
+library(tidyverse)
+library(scales)
+library(arules)
+library(arulesViz)
+library(car)
+library(caret)
+library(forecast)
+library(zoo)
 library(ggcorrplot)
 library(ggalt)
+library(ggmap)
+library(ggpubr)
 library(ggExtra)
-library(ggthemes)
+library(ggfortify)
 library(ggplotify)
+library(rworldmap)
 library(treemapify)
-library(plyr)
-library(dplyr)
-library(scales)
-library(zoo)
 library(shiny)
 library(shinydashboard)
-library(shinythemes)
 
 ### Definição do tema padrão para utilização dos gráficos
 seta <- grid::arrow(length = grid::unit(0.2, 'cm'), type = 'open')
@@ -53,4 +76,11 @@ bar_theme <- function (base_size = 14, base_family = 'Arial') {
 
 
 ### Carregando base de dados...
-dataset <- read.csv(file = 'data/terrorismo_csv.csv', header = TRUE, sep = ";", dec = ",")
+dataset <- read.csv(file = 'data/terrorismo_csv.csv', header = TRUE, sep = ';', dec = ',')
+
+## Adiciona coluna de década
+dataset$decada <- ifelse(dataset$ano < 1980, '70', 
+                         ifelse(dataset$ano < 1990, '80', 
+                                ifelse(dataset$ano < 2000, '90', 
+                                       ifelse(dataset$ano < 2010, '2000', '2010'))))
+
