@@ -1,5 +1,6 @@
 # install.packages(c('rsconnect',
 #                    'tidyverse',
+#                    'plotly',
 #                    'plyr',
 #                    'scales',
 #                    'arules',
@@ -23,6 +24,7 @@
 ### Carregando pacotes
 library(plyr)
 library(tidyverse)
+library(plotly)
 library(scales)
 library(arules)
 library(arulesViz)

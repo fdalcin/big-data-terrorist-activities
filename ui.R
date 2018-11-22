@@ -21,7 +21,7 @@ dashboardPage(
           box(
             title = 'Atentados ao longo dos anos',
             width = 8,
-            plotOutput('atentados_por_ano')
+            plotlyOutput('atentados_por_ano')
           ),
 
           box(
@@ -35,15 +35,7 @@ dashboardPage(
           box(
             title = 'Vítimas ao longo dos anos',
             width = 8,
-            plotOutput('vitimas_por_ano')
-          )
-        ),
-        
-        fluidRow(
-          box(
-            title = 'Feridos ao longo dos anos',
-            width = 8,
-            plotOutput('feridos_por_ano')
+            plotlyOutput('mortos_feridos_por_ano')
           )
         ),
         
@@ -51,7 +43,15 @@ dashboardPage(
           box(
             title = 'Atentados por tipo',
             width = 8,
-            plotOutput('atentados_por_tipo_ataque')
+            plotlyOutput('atentados_por_tipo_ataque')
+          )
+        ),
+        
+        fluidRow(
+          box(
+            title = 'Efetividade dos ataques',
+            width = 8,
+            plotlyOutput('atentados_sucesso_falha')
           )
         )
       ),
@@ -63,7 +63,7 @@ dashboardPage(
           box(
             title = 'Grupos mais atuantes',
             width = 8,
-            plotOutput('grupos_mais_atuantes')
+            plotlyOutput('grupos_mais_atuantes')
           ),
           
           box(
@@ -77,7 +77,7 @@ dashboardPage(
           box(
             title = 'Atividades por grupo ao longo dos anos',
             width = 8,
-            plotOutput('atividades_grupos_mais_atuantes')
+            plotlyOutput('atividades_grupos_mais_atuantes')
           )
         )
       ) 
