@@ -43,6 +43,14 @@ library(treemapify)
 library(shiny)
 library(shinydashboard)
 
+### Importa scripts
+source('scripts/atentados_por_ano.R')
+source('scripts/mortos_feridos_por_ano.R')
+source('scripts/atentados_por_tipo_ataque.R')
+source('scripts/atentados_sucesso_falha.R')
+source('scripts/grupos_mais_atuantes.R')
+source('scripts/atividades_grupos_mais_atuantes.R')
+
 ### Definição do tema padrão para utilização dos gráficos
 seta <- grid::arrow(length = grid::unit(0.2, 'cm'), type = 'open')
 
