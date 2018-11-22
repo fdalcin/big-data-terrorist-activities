@@ -6,7 +6,6 @@
 #                    'arulesViz',
 #                    'car',
 #                    'caret',
-#                    'forecast',
 #                    'zoo',
 #                    'ggcorrplot',
 #                    'ggalt',
@@ -29,7 +28,6 @@ library(arules)
 library(arulesViz)
 library(car)
 library(caret)
-library(forecast)
 library(zoo)
 library(ggcorrplot)
 library(ggalt)
@@ -78,9 +76,9 @@ bar_theme <- function (base_size = 14, base_family = 'Arial') {
 ### Carregando base de dados...
 dataset <- read.csv(file = 'data/terrorismo_csv.csv', header = TRUE, sep = ';', dec = ',')
 
-## Adiciona coluna de década
-dataset$decada <- ifelse(dataset$ano < 1980, '70', 
-                         ifelse(dataset$ano < 1990, '80', 
-                                ifelse(dataset$ano < 2000, '90', 
-                                       ifelse(dataset$ano < 2010, '2000', '2010'))))
+# ## Adiciona coluna de década
+# dataset$decada <- ifelse(dataset$ano < 1980, '70s', 
+#                          ifelse(dataset$ano < 1990, '80s', 
+#                                 ifelse(dataset$ano < 2000, '90s', 
+#                                        ifelse(dataset$ano < 2010, '2000s', '2010s'))))
 

@@ -19,7 +19,7 @@ dashboardPage(
         tabName = 'tabDashboard', 
         fluidRow(
           box(
-            title = 'Número de atentados ao longo dos anos',
+            title = 'Atentados ao longo dos anos',
             width = 8,
             plotOutput('atentados_por_ano')
           ),
@@ -33,7 +33,23 @@ dashboardPage(
         
         fluidRow(
           box(
-            title = 'Atentados por tipo de ataque',
+            title = 'Vítimas ao longo dos anos',
+            width = 8,
+            plotOutput('vitimas_por_ano')
+          )
+        ),
+        
+        fluidRow(
+          box(
+            title = 'Feridos ao longo dos anos',
+            width = 8,
+            plotOutput('feridos_por_ano')
+          )
+        ),
+        
+        fluidRow(
+          box(
+            title = 'Atentados por tipo',
             width = 8,
             plotOutput('atentados_por_tipo_ataque')
           )
@@ -59,7 +75,7 @@ dashboardPage(
         
         fluidRow(
           box(
-            title = 'Atividades dos grupos ao longo dos anos',
+            title = 'Atividades por grupo ao longo dos anos',
             width = 8,
             plotOutput('atividades_grupos_mais_atuantes')
           )
