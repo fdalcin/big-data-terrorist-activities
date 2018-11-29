@@ -43,14 +43,6 @@ library(treemapify)
 library(shiny)
 library(shinydashboard)
 
-### Importa scripts
-source('scripts/atentados_por_ano.R')
-source('scripts/mortos_feridos_por_ano.R')
-source('scripts/atentados_por_tipo_ataque.R')
-source('scripts/atentados_sucesso_falha.R')
-source('scripts/grupos_mais_atuantes.R')
-source('scripts/atividades_grupos_mais_atuantes.R')
-
 ### Definição do tema padrão para utilização dos gráficos
 seta <- grid::arrow(length = grid::unit(0.2, 'cm'), type = 'open')
 
@@ -85,10 +77,4 @@ bar_theme <- function (base_size = 14, base_family = 'Arial') {
 
 ### Carregando base de dados...
 dataset <- read.csv(file = 'data/terrorismo_csv.csv', header = TRUE, sep = ';', dec = ',')
-
-# ## Adiciona coluna de década
-# dataset$decada <- ifelse(dataset$ano < 1980, '70s', 
-#                          ifelse(dataset$ano < 1990, '80s', 
-#                                 ifelse(dataset$ano < 2000, '90s', 
-#                                        ifelse(dataset$ano < 2010, '2000s', '2010s'))))
 
