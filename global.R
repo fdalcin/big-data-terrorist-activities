@@ -78,4 +78,56 @@ no_arrow_theme <- function (base_size = 14, base_family = 'Arial') {
 ### Carregando base de dados...
 dataset <- read.csv(file = 'data/terrorismo_csv.csv', header = TRUE, sep = ';', dec = ',')
 
+data <- dataset %>% 
+  group_by(ano, regiao) %>% 
+  summarise(atentados = n(),
+            mortes = sum(mortes_confirmadas_vitimas, na.rm = TRUE),
+            media_mortes = round(mortes / atentados, digits = 2)) %>% 
+  filter(atentados >= 20)
+
+data_select <- data[data$media_mortes >= 10,]
+
+# Eventos x Ano
+gg <- ggplot(data, aes(x = ano, y = atentados)) +
+  
+  geom_point(aes(col = regiao, size = mortes)) +
+  
+  geom_smooth(method = 'loess', se = FALSE) +
+  
+  guides(size = guide_legend(title = 'Mortes'),
+         colour = guide_legend(title = 'Região')) +
+  
+  labs(x = 'Ano',
+       y = 'Eventos',
+       title = 'Eventos x Ano') +
+  
+  default_theme()
+
+gg
+
+# Eventos x Média de Mortes
+gg <- ggplot(data, aes(x = mortes, y = atentados)) +
+  
+  geom_point(aes(col = regiao, size = media_mortes)) +
+  
+  geom_smooth(method = 'loess', se = FALSE) +
+  
+  guides(size = guide_legend(title = 'Média de Mortes'),
+         colour = guide_legend(title = 'Região')) +
+  
+  geom_encircle(aes(x = mortes, y = atentados),
+                data = data_select,
+                color = 'red',
+                size = 1,
+                expand = 0.08) +
+  
+  labs(x = 'Mortes',
+       y = 'Eventos',
+       title = 'Eventos x Média de Mortes') +
+  
+  scale_x_continuous(limits = c(0, 20000), 
+                     breaks = seq(0, 20000, 2000)) +
+  
+  default_theme()
+
 gg
