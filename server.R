@@ -1,4 +1,32 @@
 server <- function(input, output) {
+  ### Correlação de variáveis
+  output$correlacao <- renderPlot({
+    data <- dataset %>% select(ano, mes, dia, duracao_maior_24h, id_pais, 
+                               id_regiao, multiplos_alvos, sucesso, ataque_suicida, 
+                               id_tipoataque, id_tipoalvo, id_subtipoalvo, id_tipoarma, 
+                               mortes_confirmadas_vitimas, mortes_terroristas, 
+                               numero_vitimas_feridas, numero_terroristas_feridos)
+    
+    names(data) <- c('Ano', 'Mes', 'Dia', 'Mais 24h', 'Pais', 
+                     'Regiao', 'Multiplos Alvos', 'Sucesso', 'Ataque Suicida', 
+                     'Tipo Ataque', 'Tipo Alvo', 'Subtipo Alvo', 'Tipo Arma',
+                     'Vitimas Mortas', 'Terroristas Mortos', 'Vitimas Feridas', 'Terroristas Feridos')
+    
+    correlacao <- round(cor(data), 1)
+    
+    gg <- ggcorrplot(correlacao,
+                     type = 'lower',
+                     lab = TRUE,
+                     lab_size = 3,
+                     method = "circle",
+                     colors = c('#ff0000', '#ffffff', '#007f00'),
+                     title = 'Correlaciograma',
+                     insig = 'blank',
+                     ggtheme = line_theme)
+    
+    gg
+  })
+  
   ### Atentados por ano
   output$atentados_por_ano <- renderPlotly({
     ## pega parâmetros
@@ -83,12 +111,18 @@ server <- function(input, output) {
     ano_max <- max(input$interval)
     countries <- input$countries
     
+    if (is.null(countries)) {
+      atentados_por_ano <- dataset %>% 
+        filter(ano >= ano_min & ano <= ano_max)
+    } else {
+      atentados_por_ano <- dataset %>% 
+        filter(pais %in% countries & 
+                 ano >= ano_min & 
+                 ano <= ano_max)
+    }
+    
     ## Gera data frame com os dados agrupados por ano
-    atentados_por_ano <- dataset %>% 
-      filter(pais %in% countries & 
-               ano >= ano_min & 
-               ano <= ano_max) %>%
-      group_by(ano)
+    atentados_por_ano <- atentados_por_ano %>% group_by(ano)
     
     ## Gera data frame de mortes nos atentados
     mortos_por_ano <- atentados_por_ano %>% 
@@ -120,7 +154,7 @@ server <- function(input, output) {
       # Define labels
       labs(x = 'Ano', 
            y = 'Vítimas', 
-           color = 'Estado') + 
+           color = 'Situação') + 
       
       ## Aplica o tema
       line_theme()
@@ -135,11 +169,18 @@ server <- function(input, output) {
     ano_max <- max(input$interval)
     countries <- input$countries
     
+    if (is.null(countries)) {
+      atentados_sucesso_falha <- dataset %>% 
+        filter(ano >= ano_min & ano <= ano_max)
+    } else {
+      atentados_sucesso_falha <- dataset %>% 
+        filter(pais %in% countries & 
+                 ano >= ano_min & 
+                 ano <= ano_max)
+    }
+    
     ## Gera data frame com os dados agrupados por ano
-    atentados_sucesso_falha <- dataset %>%
-      filter(pais %in% countries & 
-               ano >= ano_min & 
-               ano <= ano_max) %>%
+    atentados_sucesso_falha <- atentados_sucesso_falha %>%
       group_by(ano, sucesso) %>%
       summarise(atentados = n()) %>%
       mutate(sucesso = ifelse(sucesso == 1, 'Sucesso', 'Falha'))

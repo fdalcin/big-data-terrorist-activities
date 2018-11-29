@@ -55,7 +55,8 @@ dashboardPage(
         fluidRow(
           box(
             width = 12,
-            includeHTML('html/home.html')
+            includeHTML('html/home.html'),
+            plotOutput('correlacao', height = 500)
           )
         )
       ),
