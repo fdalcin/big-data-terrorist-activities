@@ -56,7 +56,7 @@ server <- function(input, output) {
       
       # Define labels
       labs(x = 'Ano', 
-           y = 'Ataques') + 
+           y = 'Eventos') + 
       
       # Aplica o tema
       line_theme()
@@ -95,7 +95,7 @@ server <- function(input, output) {
       
       # Define labels
       labs(x = 'Ano', 
-           y = 'Ataques',
+           y = 'Eventos',
            color = 'Países') + 
       
       # Aplica o tema
@@ -201,7 +201,7 @@ server <- function(input, output) {
       
       # Define labels
       labs(x = 'Ano', 
-           y = 'Ataques', 
+           y = 'Eventos', 
            color = 'Efetividade') + 
       
       ## Aplica o tema
@@ -250,7 +250,7 @@ server <- function(input, output) {
       
       ## Define labels
       labs(x = '',
-           y = 'Ataques') +
+           y = 'Eventos') +
       
       ## Aplica o tema
       bar_theme()
@@ -296,7 +296,7 @@ server <- function(input, output) {
       
       # Define labels
       labs(x = '', 
-           y = 'Atentados') +
+           y = 'Eventos') +
       
       # Define escala do eixo Y
       scale_y_continuous(limits = c(0, 10), 
@@ -356,7 +356,7 @@ server <- function(input, output) {
       
       # Define labels
       labs(x = 'Ano', 
-           y = 'Atentados', 
+           y = 'Eventos', 
            color = 'Grupo terrorista') +
       
       # Define escala de X

@@ -16,7 +16,7 @@ dashboardPage(
       menuItem(text = 'Home', tabName = 'home', icon = icon('home')),
       
       # Atentados
-      menuItem(text = 'Atentados',
+      menuItem(text = 'Eventos',
                tabName = 'atentados',
                icon = icon('fire'),
                
@@ -81,13 +81,13 @@ dashboardPage(
             
             fluidRow(
               box(
-                title = 'Atentados',
+                title = 'Eventos',
                 width = 12,
                 plotlyOutput('atentados_por_ano')
               ),
               
               box(
-                title = 'Atentados',
+                title = 'Eventos',
                 width = 12,
                 plotlyOutput('atentados_por_pais')
               )
@@ -101,7 +101,7 @@ dashboardPage(
               ),
               
               box(
-                title = 'Efetividade dos ataques',
+                title = 'Efetividade',
                 width = 12,
                 plotlyOutput('atentados_sucesso_falha')
               )
@@ -129,7 +129,7 @@ dashboardPage(
             width = 8,
             fluidRow(
               box(
-                title = 'Atentados por tipo',
+                title = 'Eventos por tipo',
                 width = 12,
                 plotlyOutput('atentados_por_tipo_ataque')
               )
