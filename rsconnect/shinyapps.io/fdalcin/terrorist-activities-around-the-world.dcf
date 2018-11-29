@@ -5,9 +5,9 @@ account: fdalcin
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 583629
-bundleId: 1729172
+bundleId: 1729207
 url: https://fdalcin.shinyapps.io/terrorist-activities-around-the-world/
-when: 1543511651.14805
+when: 1543512554.29103
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: .RData

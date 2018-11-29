@@ -22,7 +22,7 @@ server <- function(input, output) {
                      colors = c('#ff0000', '#ffffff', '#007f00'),
                      title = 'Correlaciograma',
                      insig = 'blank',
-                     ggtheme = line_theme)
+                     ggtheme = default_theme)
     
     gg
   })
@@ -59,7 +59,7 @@ server <- function(input, output) {
            y = 'Eventos') + 
       
       # Aplica o tema
-      line_theme()
+      default_theme()
     
     ggplotly(gg)
   })
@@ -99,7 +99,7 @@ server <- function(input, output) {
            color = 'Países') + 
       
       # Aplica o tema
-      line_theme()
+      default_theme()
     
     ggplotly(gg)
   })
@@ -157,7 +157,7 @@ server <- function(input, output) {
            color = 'Situação') + 
       
       ## Aplica o tema
-      line_theme()
+      default_theme()
     
     ggplotly(gg)
   })
@@ -205,7 +205,7 @@ server <- function(input, output) {
            color = 'Efetividade') + 
       
       ## Aplica o tema
-      line_theme()
+      default_theme()
     
     ggplotly(gg)
   })
@@ -253,7 +253,7 @@ server <- function(input, output) {
            y = 'Eventos') +
       
       ## Aplica o tema
-      bar_theme()
+      no_arrow_theme()
     
     ggplotly(gg, tooltip = c('text'))
   })
@@ -306,7 +306,7 @@ server <- function(input, output) {
       coord_flip() +
       
       # Aplica o tema
-      bar_theme()
+      no_arrow_theme()
     
     ggplotly(gg, tooltip = c('text'))
   })
@@ -364,7 +364,7 @@ server <- function(input, output) {
                          breaks = seq(ano_min, ano_max, 3)) +
       
       # Aplica o tema
-      line_theme()
+      default_theme()
     
     ggplotly(gg)
   })

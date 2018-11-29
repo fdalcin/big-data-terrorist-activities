@@ -46,7 +46,7 @@ library(shinydashboard)
 ### Definição do tema padrão para utilização dos gráficos
 seta <- grid::arrow(length = grid::unit(0.2, 'cm'), type = 'open')
 
-line_theme <- function (base_size = 14, base_family = 'Arial') {
+default_theme <- function (base_size = 14, base_family = 'Arial') {
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
     theme(axis.ticks = element_blank(),
           axis.line = element_line(arrow = seta, color = 'gray20'),
@@ -60,7 +60,7 @@ line_theme <- function (base_size = 14, base_family = 'Arial') {
           complete = TRUE)
 }
 
-bar_theme <- function (base_size = 14, base_family = 'Arial') {
+no_arrow_theme <- function (base_size = 14, base_family = 'Arial') {
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
     theme(axis.ticks = element_blank(),
           legend.background = element_blank(),
@@ -78,3 +78,4 @@ bar_theme <- function (base_size = 14, base_family = 'Arial') {
 ### Carregando base de dados...
 dataset <- read.csv(file = 'data/terrorismo_csv.csv', header = TRUE, sep = ';', dec = ',')
 
+gg
