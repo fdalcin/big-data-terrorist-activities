@@ -176,11 +176,18 @@ server <- function(input, output) {
     ano_max <- max(input$interval2)
     countries <- input$countries2
     
+    if (is.null(countries)) {
+      atentados_por_tipo <- dataset %>% 
+        filter(ano >= ano_min & ano <= ano_max)
+    } else {
+      atentados_por_tipo <- dataset %>% 
+        filter(pais %in% countries & 
+                 ano >= ano_min & 
+                 ano <= ano_max)
+    }
+    
     ## Gera data frame com os dados agrupados por ano
-    atentados_por_tipo <- dataset %>% 
-      filter(pais %in% countries & 
-               ano >= ano_min & 
-               ano <= ano_max) %>%
+    atentados_por_tipo <- atentados_por_tipo %>%
       group_by(tipo_ataque) %>% 
       summarize(atentados = n() / 1000) %>%
       mutate(atentados = round(atentados, digits = 2), 
@@ -217,12 +224,19 @@ server <- function(input, output) {
     ano_max <- max(input$interval3)
     countries <- input$countries3
     
+    if (is.null(countries)) {
+      atentados_por_grupo <- dataset %>% filter(organizacao_terrorista != 'Unknown' & 
+                                                  ano >= ano_min & 
+                                                  ano <= ano_max)
+    } else {
+      atentados_por_grupo <- dataset %>% filter(pais %in% countries &
+                                                  organizacao_terrorista != 'Unknown' & 
+                                                  ano >= ano_min & 
+                                                  ano <= ano_max)
+    }
+    
     ## Gera data frame com os dados agrupados por organiza??o
-    atentados_por_grupo <- dataset %>%
-      filter(pais %in% countries &
-               organizacao_terrorista != 'Unknown' & 
-               ano >= ano_min & 
-               ano <= ano_max) %>%
+    atentados_por_grupo <- atentados_por_grupo %>%
       group_by(organizacao_terrorista) %>%
       summarise(atentados = n() / 1000) %>%
       mutate(atentados = round(atentados, digits = 2),
@@ -263,12 +277,21 @@ server <- function(input, output) {
     ano_max <- max(input$interval3)
     countries <- input$countries3
     
+    if (is.null(countries)) {
+      grupos <- dataset %>% 
+        filter(organizacao_terrorista != 'Unknown' & 
+                 ano >= ano_min & 
+                 ano <= ano_max)
+    } else {
+      grupos <- dataset %>% 
+        filter(pais %in% countries &
+                 organizacao_terrorista != 'Unknown' & 
+                 ano >= ano_min & 
+                 ano <= ano_max)
+    }
+    
     ## Gera data frame com os dados agrupados por organização
-    grupos <- dataset %>%
-      filter(pais %in% countries &
-               organizacao_terrorista != 'Unknown' & 
-               ano >= ano_min & 
-               ano <= ano_max) %>%
+    grupos <- grupos %>%
       group_by(organizacao_terrorista) %>%
       summarise(atentados = n()) %>%
       top_n(n = 10, wt = atentados)
