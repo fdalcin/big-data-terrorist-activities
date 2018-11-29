@@ -131,3 +131,6 @@ gg <- ggplot(data, aes(x = mortes, y = atentados)) +
   default_theme()
 
 gg
+
+# Boxplot da relação entre eventos x mortes
+ggMarginal(gg, type = "boxplot", fill = "transparent")
