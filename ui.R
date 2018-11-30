@@ -13,7 +13,13 @@ dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       # Home
-      menuItem(text = 'Home', tabName = 'home', icon = icon('home')),
+      menuItem('Home', tabName = 'tabHome', icon = icon('home')),
+      
+      # Introducao
+      menuItem('Introducao', tabName = 'tabIntroducao', icon = icon('comments-o')),
+      
+      # Database
+      menuItem('Base de dados', tabName = 'tabBasedados', icon = icon('database')),
       
       # Atentados
       menuItem(text = 'Eventos',
@@ -51,13 +57,29 @@ dashboardPage(
     tabItems(
       # Home
       tabItem(
-        tabName = 'home',
+        tabName = 'tabHome',
+        fluidRow(
+          column(12, includeHTML("html/home.html"))
+        )
+      ),
+      
+      # Introducao
+      tabItem(
+        tabName = 'tabIntroducao',
         fluidRow(
           box(
             width = 12,
-            includeHTML('html/home.html'),
+            column(12, includeHTML("html/introducao.html")),
             plotOutput('correlacao', height = 500)
           )
+        )
+      ),
+      
+      # Base de dados
+      tabItem(
+        tabName = 'tabBasedados',
+        fluidRow(
+          column(12, includeHTML("html/base.html"))
         )
       ),
       
