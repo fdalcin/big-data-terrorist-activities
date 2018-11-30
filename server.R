@@ -418,7 +418,7 @@ server <- function(input, output) {
         summarise(mortes = sum(mortes_confirmadas_vitimas, na.rm = TRUE),
                   feridos = sum(numero_vitimas_feridas, na.rm = TRUE)) %>%
         arrange(desc(mortes), desc(feridos)) %>%
-        head(10)
+        head(15)
       
       atividade_por_cidade <- dataset %>%
         filter(organizacao_terrorista %in% grupos$organizacao_terrorista)
@@ -432,7 +432,7 @@ server <- function(input, output) {
         summarise(mortes = sum(mortes_confirmadas_vitimas, na.rm = TRUE),
                   feridos = sum(numero_vitimas_feridas, na.rm = TRUE)) %>%
         arrange(desc(mortes), desc(feridos)) %>%
-        head(10)
+        head(15)
       
       atividade_por_cidade <- dataset %>%
         filter(organizacao_terrorista %in% grupos$organizacao_terrorista &
