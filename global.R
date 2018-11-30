@@ -139,3 +139,4 @@ gg
 
 # Boxplot da relação entre eventos x mortes
 ggMarginal(gg, type = "boxplot", fill = "transparent")
+ 

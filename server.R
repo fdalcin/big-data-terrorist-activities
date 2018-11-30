@@ -370,9 +370,9 @@ server <- function(input, output) {
   })
   
   output$mapa <- renderLeaflet({
-    ano_min <- min(input$interval)
-    ano_max <- max(input$interval)
-    countries <- input$countries
+    ano_min <- min(input$interval4)
+    ano_max <- max(input$interval4)
+    countries <- input$countries4
     
     if (is.null(countries)) {
       grupos <- dataset %>% 
@@ -392,7 +392,7 @@ server <- function(input, output) {
       group_by(organizacao_terrorista) %>%
       summarise(atentados = n()) %>%
       top_n(n = 10, wt = atentados)
-    
+     
     atividade_por_cidade <- dataset %>%
       filter(organizacao_terrorista %in% grupos$organizacao_terrorista) %>%
       group_by(ano, cidade, latitude, longitude) %>%

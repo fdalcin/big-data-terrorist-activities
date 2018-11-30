@@ -179,11 +179,11 @@ dashboardPage(
           box(
             width = 12,
             h2('Filtros'),
-            sliderInput('interval', 'Intervalo:', ano_min, ano_max, c(dataset), step = 1, dragRange = TRUE),
-            selectInput('countries', 'País', paises, selected = 'United States', multiple = TRUE, selectize = TRUE)
+            sliderInput('interval4', 'Intervalo:', ano_min, ano_max, c(dataset), step = 1, dragRange = TRUE),
+            selectInput('countries4', 'País', paises, selected = 'United States', multiple = TRUE, selectize = TRUE)
           )
         ),
-        
+         
         column(
           width = 8,
           fluidRow(
