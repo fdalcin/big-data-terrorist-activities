@@ -227,6 +227,12 @@ dashboardPage(
                 title = 'Atividades por grupo ao longo dos anos',
                 width = 12,
                 plotlyOutput('atividades_grupos_mais_atuantes')
+              ),
+              
+              box(
+                title = 'Vítimas por organização',
+                width = 12,
+                plotlyOutput('vitimas_organizacao')
               )
             )
           )

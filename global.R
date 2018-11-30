@@ -140,3 +140,38 @@ gg
 # Boxplot da relação entre eventos x mortes
 ggMarginal(gg, type = 'boxplot', fill = 'transparent')
  
+# Mortos por organizações terroristas
+vitimas_organizacao <- dataset %>% 
+  group_by(organizacao_terrorista) %>% 
+  summarise(mortos = sum(mortes_confirmadas_vitimas, na.rm = TRUE),
+            feridos = sum(numero_vitimas_feridas, na.rm = TRUE),
+            vitimas = mortos+feridos) %>%
+  filter(organizacao_terrorista != 'Unknown') %>%
+  arrange(desc(vitimas)) %>%
+  head(10)
+
+  ## Gera gráfico...
+  gg <- ggplot(data = vitimas_organizacao, 
+          aes(x = organizacao_terrorista, 
+          y = vitimas)) +
+  
+  ## Define barra do gráfico
+  geom_bar(stat = 'identity',
+           width = 0.8,
+           aes(fill = organizacao_terrorista)) +
+  
+  ## Rotaciona gráfico de barras para melhorar a legibilidade
+  coord_flip()+ 
+  
+  ## Define labels
+  labs(x = '',
+       y = '',
+       title = 'Vítimas por Organização') +
+  
+  ## Aplica o tema
+  no_arrow_theme()
+
+  ggplotly(gg, tooltip = c('text'))
+
+  
+
