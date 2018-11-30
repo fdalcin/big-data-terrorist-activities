@@ -42,6 +42,11 @@ library(rworldmap)
 library(treemapify)
 library(shiny)
 library(shinydashboard)
+library(leaflet)
+library(ggplot2)
+library(dplyr)
+library(ggmap)
+library(tidyverse)
 
 ### Definição do tema padrão para utilização dos gráficos
 seta <- grid::arrow(length = grid::unit(0.2, 'cm'), type = 'open')

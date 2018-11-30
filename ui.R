@@ -170,6 +170,30 @@ dashboardPage(
             )
           )
         )
+      ),
+      
+      tabItem(
+        tabName = 'mapa',
+        column(
+          width = 4,
+          box(
+            width = 12,
+            h2('Filtros'),
+            sliderInput('interval', 'Intervalo:', ano_min, ano_max, c(dataset), step = 1, dragRange = TRUE),
+            selectInput('countries', 'País', paises, selected = 'United States', multiple = TRUE, selectize = TRUE)
+          )
+        ),
+        
+        column(
+          width = 8,
+          fluidRow(
+            box(
+              title = 'Mapa',
+              width = 12,
+              leafletOutput("mapa")
+            )
+          )
+        )
       )
     )
   )

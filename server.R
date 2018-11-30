@@ -368,4 +368,39 @@ server <- function(input, output) {
     
     ggplotly(gg)
   })
+  
+  output$mapa <- renderLeaflet({
+    ano_min <- min(input$interval)
+    ano_max <- max(input$interval)
+    countries <- input$countries
+    
+    if (is.null(countries)) {
+      grupos <- dataset %>% 
+        filter(organizacao_terrorista != 'Unknown' & 
+                 ano >= ano_min & 
+                 ano <= ano_max)
+    } else {
+      grupos <- dataset %>% 
+        filter(pais %in% countries &
+                 organizacao_terrorista != 'Unknown' & 
+                 ano >= ano_min & 
+                 ano <= ano_max)
+    }
+    
+    ## Gera data frame com os dados agrupados por organização
+    grupos <- grupos %>%
+      group_by(organizacao_terrorista) %>%
+      summarise(atentados = n()) %>%
+      top_n(n = 10, wt = atentados)
+    
+    atividade_por_cidade <- dataset %>%
+      filter(organizacao_terrorista %in% grupos$organizacao_terrorista) %>%
+      group_by(ano, cidade, latitude, longitude) %>%
+      summarise(atentados = n()) %>%
+      mutate(atentados = round(atentados, digits = 2),
+             atentados_p = round((atentados / sum(atentados)) * 100, digits = 2))    
+    
+      leaflet() %>% addTiles() %>%  # Add default OpenStreetMap map tiles
+        addMarkers(lng=atividade_por_cidade$longitude, lat=atividade_por_cidade$latitude, popup=atividade_por_cidade$cidade)
+  })
 }
