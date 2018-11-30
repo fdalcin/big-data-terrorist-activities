@@ -18,7 +18,7 @@ server <- function(input, output) {
                      type = 'lower',
                      lab = TRUE,
                      lab_size = 3,
-                     method = "circle",
+                     method = 'circle',
                      colors = c('#ff0000', '#ffffff', '#007f00'),
                      title = 'Correlaciograma',
                      insig = 'blank',
@@ -402,5 +402,67 @@ server <- function(input, output) {
     
       leaflet() %>% addTiles() %>%  # Add default OpenStreetMap map tiles
         addMarkers(lng=atividade_por_cidade$longitude, lat=atividade_por_cidade$latitude, popup=atividade_por_cidade$cidade)
+  })
+  
+  output$mapa_novo <- renderLeaflet({
+    ano_min <- min(input$interval5)
+    ano_max <- max(input$interval5)
+    countries <- input$countries5
+    
+    if (is.null(countries)) {
+      grupos <- dataset %>% 
+        filter(organizacao_terrorista != 'Unknown' & 
+                 ano >= ano_min & 
+                 ano <= ano_max) %>%
+        group_by(organizacao_terrorista) %>%
+        summarise(mortes = sum(mortes_confirmadas_vitimas, na.rm = TRUE),
+                  feridos = sum(numero_vitimas_feridas, na.rm = TRUE)) %>%
+        arrange(desc(mortes), desc(feridos)) %>%
+        head(10)
+      
+      atividade_por_cidade <- dataset %>%
+        filter(organizacao_terrorista %in% grupos$organizacao_terrorista)
+    } else {
+      grupos <- dataset %>% 
+        filter(pais %in% countries &
+                 organizacao_terrorista != 'Unknown' & 
+                 ano >= ano_min & 
+                 ano <= ano_max) %>%
+        group_by(organizacao_terrorista) %>%
+        summarise(mortes = sum(mortes_confirmadas_vitimas, na.rm = TRUE),
+                  feridos = sum(numero_vitimas_feridas, na.rm = TRUE)) %>%
+        arrange(desc(mortes), desc(feridos)) %>%
+        head(10)
+      
+      atividade_por_cidade <- dataset %>%
+        filter(organizacao_terrorista %in% grupos$organizacao_terrorista &
+                 pais %in% countries)
+    }
+    
+    factorPal <- colorFactor(
+      palette = 'inferno',
+      domain = factor(grupos$organizacao_terrorista)
+    )
+    
+    leaflet(data = atividade_por_cidade) %>% 
+      addTiles() %>%
+      addCircleMarkers(
+        lng = ~longitude,
+        lat = ~latitude,
+        popup = ~paste(sep = '<br/>',
+                       paste('<strong>', atividade_por_cidade$organizacao_terrorista, '</strong>'),
+                       paste('<strong>Cidade:</strong> ', atividade_por_cidade$cidade, atividade_por_cidade$ano),
+                       paste('<strong>Mortes:</strong> ', atividade_por_cidade$mortes_confirmadas_vitimas),
+                       paste('<strong>Feridos:</strong> ', atividade_por_cidade$numero_vitimas_feridas)),
+        stroke = FALSE,
+        radius = ~ifelse(mortes_confirmadas_vitimas > 100, 15, 5),
+        color = ~factorPal(organizacao_terrorista),
+        fillOpacity = 0.8) %>%
+      addLegend(
+        'bottomleft', 
+        pal = factorPal, 
+        values = ~organizacao_terrorista,
+        title = 'Organizações')
+    
   })
 }

@@ -49,6 +49,10 @@ dashboardPage(
       # Mapa 
       menuItem(text = 'Mapa',
                tabName = 'mapa',
+               icon = icon('map-marker')),
+      
+      menuItem(text = 'Mapa',
+               tabName = 'mapa_novo',
                icon = icon('map-marker'))
     )
   ),
@@ -59,7 +63,7 @@ dashboardPage(
       tabItem(
         tabName = 'tabHome',
         fluidRow(
-          column(12, includeHTML("html/home.html"))
+          column(12, includeHTML('html/home.html'))
         )
       ),
       
@@ -69,7 +73,7 @@ dashboardPage(
         fluidRow(
           box(
             width = 12,
-            column(12, includeHTML("html/introducao.html")),
+            column(12, includeHTML('html/introducao.html')),
             plotOutput('correlacao', height = 500)
           )
         )
@@ -79,7 +83,7 @@ dashboardPage(
       tabItem(
         tabName = 'tabBasedados',
         fluidRow(
-          column(12, includeHTML("html/base.html"))
+          column(12, includeHTML('html/base.html'))
         )
       ),
       
@@ -212,8 +216,39 @@ dashboardPage(
             box(
               title = 'Mapa',
               width = 12,
-              leafletOutput("mapa")
+              leafletOutput('mapa')
             )
+          )
+        )
+      ),
+      
+      tabItem(
+        tabName = 'mapa_novo',
+        
+        div(
+          class = 'outer',
+          
+          tags$head(
+            includeCSS('styles.css')
+          ),
+            
+          leafletOutput(
+            'mapa_novo', 
+            width='100%', 
+            height='100%'
+          ),
+          
+          absolutePanel(
+            class = 'panel panel-default absolute-panel', 
+            fixed = TRUE, 
+            draggable = TRUE, 
+            top = 60, 
+            right = 20, 
+            width = 400,
+            height = 'auto',
+            h2('Filtros'),
+            sliderInput('interval5', 'Intervalo:', ano_min, ano_max, c(dataset), step = 1, dragRange = TRUE),
+            selectInput('countries5', 'País', paises, selected = 'United States', multiple = TRUE, selectize = TRUE)
           )
         )
       )
