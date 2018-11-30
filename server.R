@@ -465,4 +465,52 @@ server <- function(input, output) {
         title = 'Organizações')
     
   })
+  
+  ### Média de mortos por região
+  output$regiao_media_mortos <- renderPlotly({
+    ## pega parâmetros
+    regioes <- input$region
+    
+    # Carregar dados de mortes por regiao
+    ataques_mortes_regiao <- dataset %>% 
+      group_by(ano, regiao) %>% 
+      summarise(atentados = n(),
+                mortes = sum(mortes_confirmadas_vitimas, na.rm = TRUE),
+                media_mortes = round(mortes / atentados, digits = 2)) %>% 
+      filter(atentados >= 20)
+    
+    md_ataques_mortes_regiao <- data[data$media_mortes >= 10,]
+    
+    if(!is.null(regioes)){
+      ataques_mortes_regiao <- md_ataques_mortes_regiao %>% filter(regiao %in% regioes)  
+    }
+    
+    # Geração do gráfico
+    gg <- ggplot(ataques_mortes_regiao, aes(x = mortes, y = atentados)) +
+      
+      geom_point(aes(col = regiao, size = media_mortes)) +
+      
+      geom_smooth(method = 'loess', se = FALSE) +
+      
+      guides(size = guide_legend(title = 'Média de Mortes'),
+             colour = guide_legend(title = 'Região')) +
+      
+      geom_encircle(aes(x = mortes, y = atentados),
+                    data = data_select,
+                    color = 'red',
+                    size = 1,
+                    expand = 0.08) +
+      
+      labs(x = 'Mortes',
+           y = 'Eventos',
+           title = 'Eventos x Média de Mortes') +
+      
+      scale_x_continuous(limits = c(0, 20000), 
+                         breaks = seq(0, 20000, 2000)) +
+      
+      default_theme()
+    
+    ggplotly(gg)
+  })
+  
 }

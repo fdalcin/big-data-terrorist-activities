@@ -7,6 +7,9 @@ ano_max <- max(anos)
 paises <- dataset %>% group_by(pais) %>% summarise(atentados = n()) %>% filter(atentados > 50)
 paises <- paises[order(paises$pais), ] %>% select(pais)
 
+# Gera lista de regiões
+regioes <- distinct(dataset, regiao)
+
 dashboardPage(
   dashboardHeader(title = 'Global Terrorism'),
   
@@ -34,7 +37,12 @@ dashboardPage(
                # Tipo de ataque
                menuSubItem(text = 'Tipo de ataque',
                            tabName = 'tipo_ataque',
-                           icon = icon('bar-chart'))),
+                           icon = icon('bar-chart')),
+               
+               # Média de mortes por região
+               menuSubItem(text = 'Mortes por região',
+                           tabName = 'media_mortos_regiao',
+                           icon = icon('calendar'))),
       
       # Grupos Terroristas
       menuItem(text = 'Grupos Terroristas',
@@ -158,6 +166,33 @@ dashboardPage(
                 title = 'Eventos por tipo',
                 width = 12,
                 plotlyOutput('atentados_por_tipo_ataque')
+              )
+            )
+          )
+        )
+      ),
+      
+      # Mortes por região
+      tabItem(
+        tabName = 'media_mortos_regiao',
+        
+        fluidRow(
+          column(
+            width = 4,
+            box(
+              width = 12,
+              h2('Filtros'),
+              selectInput('region','Região', regioes, multiple = TRUE, selectize = TRUE)
+            )
+          ),
+          
+          column(
+            width = 8,
+            fluidRow(
+              box(
+                title = 'Média de mortos por região',
+                width = 12,
+                plotlyOutput('regiao_media_mortos')
               )
             )
           )
