@@ -75,15 +75,15 @@ dashboardPage(
       tabItem(
         tabName = 'tabIntroducao',
         fluidRow(
-          column(12, valueBoxOutput("rate1"), 
-                 valueBoxOutput("rate2"),
-                 valueBoxOutput("rate3"), 
-                 valueBoxOutput("rate4"),
-                 valueBoxOutput("rate5"),
-                 valueBoxOutput("rate6")),
           box(
             width = 12,
             column(12, includeHTML('html/introducao.html')),
+            column(12, valueBoxOutput("rate1"), 
+                   valueBoxOutput("rate2"),
+                   valueBoxOutput("rate3"), 
+                   valueBoxOutput("rate4"),
+                   valueBoxOutput("rate5"),
+                   valueBoxOutput("rate6")),
             column(12, plotOutput('correlacao'))
           )
         )
