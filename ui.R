@@ -56,10 +56,6 @@ dashboardPage(
       
       # Mapa 
       menuItem(text = 'Mapa',
-               tabName = 'mapa',
-               icon = icon('map-marker')),
-      
-      menuItem(text = 'Mapa',
                tabName = 'mapa_novo',
                icon = icon('map-marker'))
     )
@@ -82,7 +78,7 @@ dashboardPage(
           box(
             width = 12,
             column(12, includeHTML('html/introducao.html')),
-            plotOutput('correlacao', height = 500)
+            plotOutput('correlacao')
           )
         )
       ),
@@ -117,13 +113,13 @@ dashboardPage(
               box(
                 title = 'Eventos',
                 width = 12,
-                plotlyOutput('atentados_por_ano')
+                plotOutput('atentados_por_ano')
               ),
               
               box(
                 title = 'Eventos',
                 width = 12,
-                plotlyOutput('atentados_por_pais')
+                plotOutput('atentados_por_pais')
               )
             ),
             
@@ -131,13 +127,13 @@ dashboardPage(
               box(
                 title = 'Vítimas',
                 width = 12,
-                plotlyOutput('mortos_feridos_por_ano')
+                plotOutput('mortos_feridos_por_ano')
               ),
               
               box(
                 title = 'Efetividade',
                 width = 12,
-                plotlyOutput('atentados_sucesso_falha')
+                plotOutput('atentados_sucesso_falha')
               )
             )
           )
@@ -165,7 +161,7 @@ dashboardPage(
               box(
                 title = 'Eventos por tipo',
                 width = 12,
-                plotlyOutput('atentados_por_tipo_ataque')
+                plotOutput('atentados_por_tipo_ataque')
               )
             )
           )
@@ -192,7 +188,7 @@ dashboardPage(
               box(
                 title = 'Média de mortos por região',
                 width = 12,
-                plotlyOutput('regiao_media_mortos')
+                plotOutput('regiao_media_mortos')
               )
             )
           )
@@ -220,44 +216,20 @@ dashboardPage(
               box(
                 title = 'Grupos mais atuantes',
                 width = 12,
-                plotlyOutput('grupos_mais_atuantes')
+                plotOutput('grupos_mais_atuantes')
               ),
               
               box(
                 title = 'Atividades por grupo ao longo dos anos',
                 width = 12,
-                plotlyOutput('atividades_grupos_mais_atuantes')
+                plotOutput('atividades_grupos_mais_atuantes')
               ),
               
               box(
                 title = 'Vítimas por organização',
                 width = 12,
-                plotlyOutput('vitimas_organizacao')
+                plotOutput('vitimas_organizacao')
               )
-            )
-          )
-        )
-      ),
-      
-      tabItem(
-        tabName = 'mapa',
-        column(
-          width = 4,
-          box(
-            width = 12,
-            h2('Filtros'),
-            sliderInput('interval4', 'Intervalo:', ano_min, ano_max, c(dataset), step = 1, dragRange = TRUE),
-            selectInput('countries4', 'País', paises, selected = 'United States', multiple = TRUE, selectize = TRUE)
-          )
-        ),
-         
-        column(
-          width = 8,
-          fluidRow(
-            box(
-              title = 'Mapa',
-              width = 12,
-              leafletOutput('mapa')
             )
           )
         )

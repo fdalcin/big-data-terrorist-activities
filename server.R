@@ -28,7 +28,7 @@ server <- function(input, output) {
   })
   
   ### Atentados por ano
-  output$atentados_por_ano <- renderPlotly({
+  output$atentados_por_ano <- renderPlot({
     ## pega parâmetros
     ano_min <- min(input$interval)
     ano_max <- max(input$interval)
@@ -61,11 +61,11 @@ server <- function(input, output) {
       # Aplica o tema
       default_theme()
     
-    ggplotly(gg)
+    gg
   })
   
   ### Atentados por pais
-  output$atentados_por_pais <- renderPlotly({
+  output$atentados_por_pais <- renderPlot({
     ## pega parâmetros
     ano_min <- min(input$interval)
     ano_max <- max(input$interval)
@@ -101,11 +101,11 @@ server <- function(input, output) {
       # Aplica o tema
       default_theme()
     
-    ggplotly(gg)
+    gg
   })
   
   ### Mortos e feridos por ano
-  output$mortos_feridos_por_ano <- renderPlotly({
+  output$mortos_feridos_por_ano <- renderPlot({
     ## pega parâmetros
     ano_min <- min(input$interval)
     ano_max <- max(input$interval)
@@ -159,11 +159,11 @@ server <- function(input, output) {
       ## Aplica o tema
       default_theme()
     
-    ggplotly(gg)
+    gg
   })
   
   ### Sucesso x falha por ano
-  output$atentados_sucesso_falha <- renderPlotly({
+  output$atentados_sucesso_falha <- renderPlot({
     ## pega parâmetros
     ano_min <- min(input$interval)
     ano_max <- max(input$interval)
@@ -207,11 +207,11 @@ server <- function(input, output) {
       ## Aplica o tema
       default_theme()
     
-    ggplotly(gg)
+    gg
   })
   
   ### Atentados por tipo
-  output$atentados_por_tipo_ataque <- renderPlotly({
+  output$atentados_por_tipo_ataque <- renderPlot({
     ## pega parâmetros
     ano_min <- min(input$interval2)
     ano_max <- max(input$interval2)
@@ -255,11 +255,11 @@ server <- function(input, output) {
       ## Aplica o tema
       no_arrow_theme()
     
-    ggplotly(gg, tooltip = c('text'))
+      gg
   })
   
   ### Atentados por grupo
-  output$grupos_mais_atuantes <- renderPlotly({
+  output$grupos_mais_atuantes <- renderPlot({
     ## pega parâmetros
     ano_min <- min(input$interval3)
     ano_max <- max(input$interval3)
@@ -308,11 +308,11 @@ server <- function(input, output) {
       # Aplica o tema
       no_arrow_theme()
     
-    ggplotly(gg, tooltip = c('text'))
+      gg
   })
   
   ### Atividade por grupo por ano
-  output$atividades_grupos_mais_atuantes <- renderPlotly({
+  output$atividades_grupos_mais_atuantes <- renderPlot({
     ## pega parâmetros
     ano_min <- min(input$interval3)
     ano_max <- max(input$interval3)
@@ -366,42 +366,7 @@ server <- function(input, output) {
       # Aplica o tema
       default_theme()
     
-    ggplotly(gg)
-  })
-  
-  output$mapa <- renderLeaflet({
-    ano_min <- min(input$interval4)
-    ano_max <- max(input$interval4)
-    countries <- input$countries4
-    
-    if (is.null(countries)) {
-      grupos <- dataset %>% 
-        filter(organizacao_terrorista != 'Unknown' & 
-                 ano >= ano_min & 
-                 ano <= ano_max)
-    } else {
-      grupos <- dataset %>% 
-        filter(pais %in% countries &
-                 organizacao_terrorista != 'Unknown' & 
-                 ano >= ano_min & 
-                 ano <= ano_max)
-    }
-    
-    ## Gera data frame com os dados agrupados por organização
-    grupos <- grupos %>%
-      group_by(organizacao_terrorista) %>%
-      summarise(atentados = n()) %>%
-      top_n(n = 10, wt = atentados)
-     
-    atividade_por_cidade <- dataset %>%
-      filter(organizacao_terrorista %in% grupos$organizacao_terrorista) %>%
-      group_by(ano, cidade, latitude, longitude) %>%
-      summarise(atentados = n()) %>%
-      mutate(atentados = round(atentados, digits = 2),
-             atentados_p = round((atentados / sum(atentados)) * 100, digits = 2))    
-    
-      leaflet() %>% addTiles() %>%  # Add default OpenStreetMap map tiles
-        addMarkers(lng=atividade_por_cidade$longitude, lat=atividade_por_cidade$latitude, popup=atividade_por_cidade$cidade)
+    gg
   })
   
   output$mapa_novo <- renderLeaflet({
@@ -467,7 +432,7 @@ server <- function(input, output) {
   })
   
   ### Média de mortos por região
-  output$regiao_media_mortos <- renderPlotly({
+  output$regiao_media_mortos <- renderPlot({
     ## pega parâmetros
     regioes <- input$region
     
@@ -510,11 +475,11 @@ server <- function(input, output) {
       
       default_theme()
     
-    ggplotly(gg)
+    gg
   })
   
   ### Vitimas por organização
-  output$vitimas_organizacao <- renderPlotly({
+  output$vitimas_organizacao <- renderPlot({
     
     # Carregar dados de mortos por organização
     vitimas_organizacao <- dataset %>% 
@@ -546,7 +511,7 @@ server <- function(input, output) {
       ## Aplica o tema
       no_arrow_theme()
     
-    ggplotly(gg, tooltip = c('text'))
+      gg
   })
   
 }
