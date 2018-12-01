@@ -75,6 +75,12 @@ dashboardPage(
       tabItem(
         tabName = 'tabIntroducao',
         fluidRow(
+          column(12, valueBoxOutput("rate1"), 
+                 valueBoxOutput("rate2"),
+                 valueBoxOutput("rate3"), 
+                 valueBoxOutput("rate4"),
+                 valueBoxOutput("rate5"),
+                 valueBoxOutput("rate6")),
           box(
             width = 12,
             column(12, includeHTML('html/introducao.html')),
@@ -102,7 +108,8 @@ dashboardPage(
               width = 12,
               h2('Filtros'),
               sliderInput('interval', 'Intervalo:', ano_min, ano_max, c(dataset), step = 1, dragRange = TRUE),
-              selectInput('countries', 'País', paises, selected = 'United States', multiple = TRUE, selectize = TRUE)
+              selectInput('countries', 'País', paises, selected = 'United States', multiple = TRUE, selectize = TRUE),
+              includeHTML("html/imagem.html")
             )
           ),
           
@@ -151,7 +158,8 @@ dashboardPage(
               width = 12,
               h2('Filtros'),
               sliderInput('interval2', 'Intervalo:', ano_min, ano_max, c(dataset), step = 1, dragRange = TRUE),
-              selectInput('countries2', 'País', paises, selected = 'United States', multiple = TRUE, selectize = TRUE)
+              selectInput('countries2', 'País', paises, selected = 'United States', multiple = TRUE, selectize = TRUE),
+              includeHTML("html/imagem.html")
             )
           ),
           
@@ -178,7 +186,8 @@ dashboardPage(
             box(
               width = 12,
               h2('Filtros'),
-              selectInput('region','Região', regioes, multiple = TRUE, selectize = TRUE)
+              selectInput('region','Região', regioes, multiple = TRUE, selectize = TRUE),
+              includeHTML("html/imagem.html")
             )
           ),
           
@@ -206,7 +215,8 @@ dashboardPage(
               width = 12,
               h2('Filtros'),
               sliderInput('interval3', 'Intervalo:', ano_min, ano_max, c(dataset), step = 1, dragRange = TRUE),
-              selectInput('countries3', 'País', paises, selected = 'United States', multiple = TRUE, selectize = TRUE)
+              selectInput('countries3', 'País', paises, selected = 'United States', multiple = TRUE, selectize = TRUE),
+              includeHTML("html/imagem.html")
             )
           ),
         

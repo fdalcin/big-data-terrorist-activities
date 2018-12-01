@@ -516,4 +516,66 @@ server <- function(input, output) {
       gg
   })
   
+  output$rate1 <- renderValueBox({
+    valueBox(
+      value = "89%",
+      subtitle = "Dos ataques tiveram sucesso",
+      icon= icon("bomb"),
+      color="yellow"
+    )
+  })  
+  
+  output$rate2 <- renderValueBox({
+    valueBox(
+      value = "4%",
+      subtitle = "Dos ataques são suicidas",
+      icon= icon("bomb"),
+      color="blue"
+    )
+  })
+  
+  output$rate3 <- renderValueBox({
+    valueBox(
+      value = "1570",
+      subtitle = "Mortos em um único ataque terrorista",
+      icon= icon("bomb"),
+      color="green"
+    )
+  })
+  
+  output$rate4 <- renderValueBox({
+    valueBox(
+      value = "49%",
+      subtitle = "Ataques com bomba",
+      icon= icon("bomb"),
+      color="pink"
+    )
+  })
+  
+  output$rate4 <- renderValueBox({
+    valueBox(
+      value = "3000",
+      subtitle = "Mortos em um ataque terrorista (WTC)",
+      icon= icon("bomb"),
+      color="red"
+    )
+  })
+  
+  output$rate5 <- renderValueBox({
+    valueBox(
+      value = "49%",
+      subtitle = "Ataques com bomba",
+      icon= icon("bomb"),
+      color="aqua"
+    )
+  })
+  
+  output$rate6 <- renderValueBox({
+    valueBox(
+      value = "82%",
+      subtitle = "Aumento ataques após 2011",
+      icon= icon("bomb"),
+      color="purple"
+    )
+  })
 }
