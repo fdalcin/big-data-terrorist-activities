@@ -485,21 +485,23 @@ server <- function(input, output) {
     vitimas_organizacao <- dataset %>% 
       group_by(organizacao_terrorista) %>% 
       summarise(mortos = sum(mortes_confirmadas_vitimas, na.rm = TRUE),
-                feridos = sum(numero_vitimas_feridas, na.rm = TRUE),
-                vitimas = mortos+feridos) %>%
+                feridos = sum(numero_vitimas_feridas, na.rm = TRUE)) %>%
       filter(organizacao_terrorista != 'Unknown') %>%
-      arrange(desc(vitimas)) %>%
+      arrange(desc(mortos), desc(feridos)) %>%
       head(10)
+    
+    vitimas_organizacao <- gather(vitimas_organizacao, classe, cont, 2:3)
     
     ## Gera gráfico...
     gg <- ggplot(data = vitimas_organizacao, 
-                 aes(x = organizacao_terrorista, 
-                     y = vitimas)) +
+                 aes(x = reorder(organizacao_terrorista, cont), 
+                     y = cont)) +
       
       ## Define barra do gráfico
       geom_bar(stat = 'identity',
                width = 0.8,
-               aes(fill = organizacao_terrorista)) +
+               color = 'white',
+               aes(fill=classe)) +
       
       ## Rotaciona gráfico de barras para melhorar a legibilidade
       coord_flip()+ 
@@ -509,7 +511,7 @@ server <- function(input, output) {
            y = '') +
       
       ## Aplica o tema
-      no_arrow_theme()
+      default_theme()
     
       gg
   })
