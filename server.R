@@ -386,7 +386,9 @@ server <- function(input, output) {
         head(15)
       
       atividade_por_cidade <- dataset %>%
-        filter(organizacao_terrorista %in% grupos$organizacao_terrorista)
+        filter(ano >= ano_min & 
+                 ano <= ano_max &
+                 organizacao_terrorista %in% grupos$organizacao_terrorista)
     } else {
       grupos <- dataset %>% 
         filter(pais %in% countries &
@@ -400,7 +402,9 @@ server <- function(input, output) {
         head(15)
       
       atividade_por_cidade <- dataset %>%
-        filter(organizacao_terrorista %in% grupos$organizacao_terrorista &
+        filter(ano >= ano_min & 
+                 ano <= ano_max &
+                 organizacao_terrorista %in% grupos$organizacao_terrorista &
                  pais %in% countries)
     }
     
