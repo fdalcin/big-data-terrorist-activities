@@ -83,8 +83,7 @@ dashboardPage(
                    valueBoxOutput("rate3"), 
                    valueBoxOutput("rate4"),
                    valueBoxOutput("rate5"),
-                   valueBoxOutput("rate6")),
-            column(12, plotOutput('correlacao'))
+                   valueBoxOutput("rate6"))
           )
         )
       ),
@@ -93,7 +92,8 @@ dashboardPage(
       tabItem(
         tabName = 'tabBasedados',
         fluidRow(
-          column(12, includeHTML('html/base.html'))
+          column(12, includeHTML('html/base.html'),
+                    plotOutput('correlacao'))
         )
       ),
       
