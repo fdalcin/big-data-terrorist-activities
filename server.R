@@ -48,7 +48,7 @@ server <- function(input, output) {
       geom_line(size = 0.5, color = 'gray60') +
       
       # Define pontos para cada ano
-      geom_point(size = 1.5, color = 'gray30') +
+      # geom_point(size = 1.5, color = 'gray30') +
       
       # Define escala de X
       scale_x_continuous(limits = c(ano_min, ano_max), 
@@ -87,7 +87,7 @@ server <- function(input, output) {
       geom_line(size = 0.5) +
       
       # Define pontos para cada ano
-      geom_point(size = 1.5) +
+      # geom_point(size = 1.5) +
       
       # Define escala de X
       scale_x_continuous(limits = c(ano_min, ano_max), 
@@ -145,7 +145,7 @@ server <- function(input, output) {
       geom_line(size = 0.5) +
       
       ## Define pontos
-      geom_point(size = 1.5) +
+      # geom_point(size = 1.5) +
       
       # Define escala de X
       scale_x_continuous(limits = c(ano_min, ano_max), 
@@ -193,7 +193,7 @@ server <- function(input, output) {
       geom_line(size = 0.5) +
       
       ## Define pontos
-      geom_point(size = 1.5) +
+      # geom_point(size = 1.5) +
       
       # Define escala de X
       scale_x_continuous(limits = c(ano_min, ano_max), 
@@ -242,7 +242,7 @@ server <- function(input, output) {
       
       ## Define barra do gráfico
       geom_bar(stat = 'identity',
-               aes(fill = tipo_ataque),
+               fill = 'cadetblue',
                width = 0.8) +
       
       ## Rotaciona gráfico de barras para melhorar a legibilidade
@@ -279,7 +279,7 @@ server <- function(input, output) {
     ## Gera data frame com os dados agrupados por organiza??o
     atentados_por_grupo <- atentados_por_grupo %>%
       group_by(organizacao_terrorista) %>%
-      summarise(atentados = n() / 1000) %>%
+      summarise(atentados = n()) %>%
       mutate(atentados = round(atentados, digits = 2),
              atentados_p = round((atentados / sum(atentados)) * 100, digits = 2)) %>%
       top_n(n = 10, wt = atentados)
@@ -291,16 +291,16 @@ server <- function(input, output) {
       
       # Define barra do gráfico
       geom_bar(stat = 'identity',
-               aes(fill = organizacao_terrorista),
+               fill = 'cadetblue',
                width = 0.8) +
       
       # Define labels
       labs(x = '', 
            y = 'Eventos') +
       
-      # Define escala do eixo Y
-      scale_y_continuous(limits = c(0, 10), 
-                         breaks = seq(0, 10, 2)) +
+      # # Define escala do eixo Y
+      # scale_y_continuous(limits = c(0, 10), 
+      #                    breaks = seq(0, 10, 2)) +
       
       # Inverte o gráfico
       coord_flip() +
@@ -352,7 +352,7 @@ server <- function(input, output) {
       # Define linhas no gráfico
       geom_line(size = 0.5) +
       
-      geom_point(size = 1.5) +
+      # geom_point(size = 1.5) +
       
       # Define labels
       labs(x = 'Ano', 
@@ -361,7 +361,7 @@ server <- function(input, output) {
       
       # Define escala de X
       scale_x_continuous(limits = c(ano_min, ano_max),
-                         breaks = seq(ano_min, ano_max, 3)) +
+                         breaks = seq(ano_min, ano_max, 10)) +
       
       # Aplica o tema
       default_theme()
@@ -457,7 +457,7 @@ server <- function(input, output) {
       
       geom_smooth(method = 'loess', se = FALSE) +
       
-      guides(size = guide_legend(title = 'Média de Mortes'),
+      guides(size = guide_legend(title = 'Proporção de Mortes'),
              colour = guide_legend(title = 'Região')) +
       
       geom_encircle(aes(x = mortes, y = atentados),
@@ -468,7 +468,7 @@ server <- function(input, output) {
       
       labs(x = 'Mortes',
            y = 'Eventos',
-           title = 'Eventos x Média de Mortes') +
+           title = 'Eventos x Proporção de Mortes') +
       
       scale_x_continuous(limits = c(0, 20000), 
                          breaks = seq(0, 20000, 2000)) +

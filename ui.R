@@ -111,27 +111,27 @@ dashboardPage(
             
             fluidRow(
               box(
-                title = 'Eventos',
+                title = 'Eventos ao longo dos anos',
                 width = 12,
                 plotOutput('atentados_por_ano')
               ),
               
               box(
-                title = 'Eventos',
+                title = 'Comparação de eventos por país',
                 width = 12,
                 plotOutput('atentados_por_pais')
               )
             ),
             
             fluidRow(
-              box(
-                title = 'Vítimas',
+              box( 
+                title = 'Vítimas e Feridos por ano',
                 width = 12,
                 plotOutput('mortos_feridos_por_ano')
               ),
               
               box(
-                title = 'Efetividade',
+                title = 'Efetividade dos ataques por ano',
                 width = 12,
                 plotOutput('atentados_sucesso_falha')
               )
@@ -159,7 +159,7 @@ dashboardPage(
             width = 8,
             fluidRow(
               box(
-                title = 'Eventos por tipo',
+                title = 'Eventos por tipo de ataque',
                 width = 12,
                 plotOutput('atentados_por_tipo_ataque')
               )
@@ -186,7 +186,7 @@ dashboardPage(
             width = 8,
             fluidRow(
               box(
-                title = 'Média de mortos por região',
+                title = 'Proporção de mortos por região',
                 width = 12,
                 plotOutput('regiao_media_mortos')
               )
