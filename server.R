@@ -436,42 +436,30 @@ server <- function(input, output) {
     ## pega parâmetros
     regioes <- input$region
     
+    ataques_mortes_regiao <- dataset
+    
+    if (!is.null(regioes)) {
+      ataques_mortes_regiao <- ataques_mortes_regiao %>% filter(regiao %in% regioes)
+    }
+    
     # Carregar dados de mortes por regiao
-    ataques_mortes_regiao <- dataset %>% 
+    ataques_mortes_regiao <- ataques_mortes_regiao %>% 
       group_by(ano, regiao) %>% 
       summarise(atentados = n(),
                 mortes = sum(mortes_confirmadas_vitimas, na.rm = TRUE),
-                media_mortes = round(mortes / atentados, digits = 2)) %>% 
-      filter(atentados >= 20)
-    
-    md_ataques_mortes_regiao <- data[data$media_mortes >= 10,]
-    
-    if(!is.null(regioes)){
-      ataques_mortes_regiao <- md_ataques_mortes_regiao %>% filter(regiao %in% regioes)  
-    }
+                media_mortes = round(mortes / atentados, digits = 2))
     
     # Geração do gráfico
-    gg <- ggplot(ataques_mortes_regiao, aes(x = mortes, y = atentados)) +
+    gg <- ggplot(ataques_mortes_regiao, aes(x = ano, y = mortes)) +
       
       geom_point(aes(col = regiao, size = media_mortes)) +
-      
-      geom_smooth(method = 'loess', se = FALSE) +
       
       guides(size = guide_legend(title = 'Proporção de Mortes'),
              colour = guide_legend(title = 'Região')) +
       
-      geom_encircle(aes(x = mortes, y = atentados),
-                    data = data_select,
-                    color = 'red',
-                    size = 1,
-                    expand = 0.08) +
-      
-      labs(x = 'Mortes',
-           y = 'Eventos',
-           title = 'Eventos x Proporção de Mortes') +
-      
-      scale_x_continuous(limits = c(0, 20000), 
-                         breaks = seq(0, 20000, 2000)) +
+      labs(x = 'Ano',
+           y = 'Mortes',
+           title = 'Proporção de mortes por ano') +
       
       default_theme()
     
