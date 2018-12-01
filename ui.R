@@ -78,7 +78,7 @@ dashboardPage(
           box(
             width = 12,
             column(12, includeHTML('html/introducao.html')),
-            plotOutput('correlacao')
+            column(12, plotOutput('correlacao'))
           )
         )
       ),
